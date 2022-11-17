@@ -144,6 +144,23 @@ public class Main {
 		contract5.setCustomer(c2);
 		contract5.setUpdatedDate(date);
 		contract5.setUpdatedUser(user);
+		
+		List<Contract> ct1C = new LinkedList<>();
+		ct1C.add(contract1);
+		ct1C.add(contract3);
+		
+		ct1.setContracts(ct1C);
+		
+		List<Contract> ct2C = new LinkedList<>();
+		ct2C.add(contract2);
+		ct2C.add(contract4);
+		
+		ct2.setContracts(ct2C);
+		
+		List<Contract> ct3C = new LinkedList<>();
+		ct3C.add(contract5);
+		
+		ct3.setContracts(ct3C);
 
 
 		/** Creacion de departamentos */
@@ -232,16 +249,16 @@ public class Main {
 			e.printStackTrace();
 		}
 
-		try {
-			contractService.insertNewContract(contract1);
-			contractService.insertNewContract(contract2);
-			contractService.insertNewContract(contract3);
-			contractService.insertNewContract(contract4);
-			contractService.insertNewContract(contract5);
-		} catch (ExistingContract e) {
-
-			e.printStackTrace();
-		}
+//		try {
+//			contractService.insertNewContract(contract1);
+//			contractService.insertNewContract(contract2);
+//			contractService.insertNewContract(contract3);
+//			contractService.insertNewContract(contract4);
+//			contractService.insertNewContract(contract5);
+//		} catch (ExistingContract e) {
+//
+//			e.printStackTrace();
+//		}
 
 		try {
 			departmentService.insertNewDepartment(dp1);
@@ -261,7 +278,7 @@ public class Main {
 			e.printStackTrace();
 		}
 		
-		System.out.println(employeeService.getAllEmployees());
+ 		System.out.println(employeeService.getAllEmployees());
 		contractTypeService.deleteContractTypeByd(1L);
 //		departmentService.deleteDepartmentByd(3L);
 //		departmentService.deleteDepartmentByd(1L);

@@ -34,5 +34,6 @@ public class ContractTypeDaoImpl extends DaoImpl<ContractType> implements Contra
 		}
 		return ct;
 	}
+
 	
 }
