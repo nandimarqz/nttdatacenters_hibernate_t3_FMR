@@ -116,7 +116,7 @@ public class Employee extends AbstracEntity{
 		this.departmentLed = departmentLed;
 	}
 	
-	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "employeesSeen" ,cascade=CascadeType.ALL)
+	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "employeesSeen",cascade = CascadeType.ALL)
 	public List<Customer> getCustomersServed() {
 		return customersServed;
 	}

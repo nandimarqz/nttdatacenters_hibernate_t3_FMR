@@ -71,7 +71,7 @@ public class Department extends AbstracEntity {
 		this.boss = boss;
 	}
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "ID_DEPT_PADRE", referencedColumnName = "ID")
 	public Department getRootDepartment() {
 		return rootDepartment;
@@ -90,7 +90,7 @@ public class Department extends AbstracEntity {
 		this.childrenDepartments = childrenDepartments;
 	}
 
-	@OneToMany(mappedBy = "department",  cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "department")
 	public List<Employee> getEmployees() {
 		return employees;
 	}

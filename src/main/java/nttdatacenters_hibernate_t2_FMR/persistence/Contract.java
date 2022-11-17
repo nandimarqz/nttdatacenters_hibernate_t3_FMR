@@ -3,7 +3,6 @@ package nttdatacenters_hibernate_t2_FMR.persistence;
 import java.sql.Date;
 import java.util.Objects;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -77,7 +76,7 @@ public class Contract extends AbstracEntity {
 		this.monthlyPrice = monthlyPrice;
 	}
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "ID_CUSTOMER" )
 	public Customer getCustomer() {
 		return customer;
