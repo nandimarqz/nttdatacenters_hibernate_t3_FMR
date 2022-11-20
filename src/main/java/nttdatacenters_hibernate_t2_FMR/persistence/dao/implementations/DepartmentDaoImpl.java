@@ -35,6 +35,16 @@ public class DepartmentDaoImpl extends DaoImpl<Department> implements Department
 	}
 	
 	
+	@Override
+	public void deleteById(Long id) {
+				
+		Department department = super.searchById(id);
+		
+		super.delete(department);
+		
+		
+	}
+	
 	
 
 }

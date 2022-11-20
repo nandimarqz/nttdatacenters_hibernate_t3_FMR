@@ -14,6 +14,9 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 @Entity
 @Table(name = "NTTDATA_T2_HIBERNATE_CONTRACT_TYPE")
 public class ContractType extends AbstracEntity {
@@ -54,6 +57,7 @@ public class ContractType extends AbstracEntity {
 	}
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "contractType")
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	public List<Contract> getContracts() {
 		return contracts;
 	}

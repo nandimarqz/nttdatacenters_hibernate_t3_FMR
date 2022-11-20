@@ -6,4 +6,6 @@ public interface EmployeeDaoI extends DaoI<Employee> {
 	
 	public Employee getEmployeeByDNI(String dni);
 
+//	@Override
+//	public void deleteById(Long id);
 }

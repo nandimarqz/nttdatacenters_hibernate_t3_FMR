@@ -12,9 +12,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.PreRemove;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
 @Table(name = "NTTDATA_T2_HIBERNATE_DEPARTMENT")
@@ -82,6 +86,7 @@ public class Department extends AbstracEntity {
 	}
 
 	@OneToMany(mappedBy = "rootDepartment",cascade = CascadeType.ALL)
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	public List<Department> getChildrenDepartments() {
 		return childrenDepartments;
 	}
@@ -93,6 +98,23 @@ public class Department extends AbstracEntity {
 	@OneToMany(mappedBy = "department")
 	public List<Employee> getEmployees() {
 		return employees;
+	}
+	
+	@PreRemove
+	private void preRemove() {
+		
+		if(employees != null) {
+			
+			for(Employee e : employees) {
+				
+				e.setDepartment(null);
+				
+			}
+			
+			
+		}
+		
+	
 	}
 
 	public void setEmployees(List<Employee> employees) {

@@ -12,46 +12,48 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.PreRemove;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 @Entity
 @Table(name = "NTTDATA_T2_HIBERNATE_EMPLOYEE")
-public class Employee extends AbstracEntity{
+public class Employee extends AbstracEntity {
 
 	private static final long serialVersionUID = 1L;
 
 	/** ID del empleado en base de datos */
 	private Long employeeId;
-	
+
 	/** Nombre del empleado */
 	private String name;
-	
+
 	/** Primer apellido del empleado */
 	private String firstSurname;
-	
+
 	/** Segundo apellido del empleado */
 	private String secondSurname;
-	
+
 	/** DNI del empleado */
 	private String dni;
-	
+
 	/** Departamento al que pertenece */
 	private Department department;
-	
+
 	/** Departamento liderado */
 	private Department departmentLed;
-	
+
 	/** Clientes atendidos por el empleado */
 	private List<Customer> customersServed;
 
-
-
-	@Column(name="ID")
+	@Column(name = "ID")
 	@Id
 	@GeneratedValue(generator = "NNTDATA_SEC")
-	@SequenceGenerator(name = "NNTDATA_SEC", sequenceName = "NNTDATA_EMPLOYEE_SEC", allocationSize = 1 )
+	@SequenceGenerator(name = "NNTDATA_SEC", sequenceName = "NNTDATA_EMPLOYEE_SEC", allocationSize = 1)
 	public Long getEmployeeId() {
 		return employeeId;
 	}
@@ -60,7 +62,7 @@ public class Employee extends AbstracEntity{
 		this.employeeId = employeeId;
 	}
 
-	@Column(name="NAME")
+	@Column(name = "NAME")
 	public String getName() {
 		return name;
 	}
@@ -69,7 +71,7 @@ public class Employee extends AbstracEntity{
 		this.name = name;
 	}
 
-	@Column(name="FIRST_SURNAME")
+	@Column(name = "FIRST_SURNAME")
 	public String getFirstSurname() {
 		return firstSurname;
 	}
@@ -78,7 +80,7 @@ public class Employee extends AbstracEntity{
 		this.firstSurname = firstSurname;
 	}
 
-	@Column(name="SECOND_SURNAME")
+	@Column(name = "SECOND_SURNAME")
 	public String getSecondSurname() {
 		return secondSurname;
 	}
@@ -87,7 +89,7 @@ public class Employee extends AbstracEntity{
 		this.secondSurname = secondSurname;
 	}
 
-	@Column(name="DNI", unique=true, nullable=false, length=9)
+	@Column(name = "DNI", unique = true, nullable = false, length = 9)
 	public String getDni() {
 		return dni;
 	}
@@ -96,9 +98,8 @@ public class Employee extends AbstracEntity{
 		this.dni = dni;
 	}
 
-	
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name="ID_DEPARTAMENTO")
+	@JoinColumn(name = "ID_DEPARTAMENTO")
 	public Department getDepartment() {
 		return department;
 	}
@@ -106,17 +107,29 @@ public class Employee extends AbstracEntity{
 	public void setDepartment(Department department) {
 		this.department = department;
 	}
-	
+
 	@OneToOne(fetch = FetchType.LAZY, mappedBy = "boss")
 	public Department getDepartmentLed() {
 		return departmentLed;
 	}
 
+//	@PreRemove
+//	private void preRemove() {
+//
+//		if (departmentLed != null) {
+//
+//			departmentLed.setBoss(null);
+//			
+//		}
+//
+//	}
+
 	public void setDepartmentLed(Department departmentLed) {
 		this.departmentLed = departmentLed;
 	}
-	
-	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "employeesSeen",cascade = CascadeType.ALL)
+
+	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "employeesSeen", cascade = CascadeType.ALL)
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	public List<Customer> getCustomersServed() {
 		return customersServed;
 	}
@@ -137,7 +150,7 @@ public class Employee extends AbstracEntity{
 	public void setId(Long id) {
 
 		this.employeeId = id;
-		
+
 	}
 
 	@Override
@@ -146,7 +159,5 @@ public class Employee extends AbstracEntity{
 				+ ", secondSurname=" + secondSurname + ", dni=" + dni + ", department=" + department
 				+ ", departmentLed=" + departmentLed + ", customersServed=" + customersServed + "]";
 	}
-	
-	
 
 }

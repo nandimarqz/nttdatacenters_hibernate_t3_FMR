@@ -6,4 +6,7 @@ public interface DepartmentDaoI extends DaoI<Department> {
 
 	public Department getDepartmentByName(String name);
 	
+	@Override
+	public void deleteById(Long id);
+	
 }

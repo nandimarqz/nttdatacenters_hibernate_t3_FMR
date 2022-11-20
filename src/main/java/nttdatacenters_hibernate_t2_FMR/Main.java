@@ -8,7 +8,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import nttdatacenters_hibernate_t2_FMR.exceptions.ExistingContract;
+import nttdatacenters_hibernate_t2_FMR.exceptions.CustomerNotFound;
 import nttdatacenters_hibernate_t2_FMR.exceptions.ExistingContractType;
 import nttdatacenters_hibernate_t2_FMR.exceptions.ExistingCustomer;
 import nttdatacenters_hibernate_t2_FMR.exceptions.ExistingDepartment;
@@ -279,12 +279,24 @@ public class Main {
 		}
 		
  		System.out.println(employeeService.getAllEmployees());
-		contractTypeService.deleteContractTypeByd(1L);
-//		departmentService.deleteDepartmentByd(3L);
-//		departmentService.deleteDepartmentByd(1L);
-//		employeeService.deleteEmployee(employeeService.getEmployeeById(1L));
 		System.out.println(employeeService.getAllEmployees());
 
+//		contractTypeService.deleteContractTypeByd(1L);
+//		contractTypeService.deleteContractType(contractTypeService.getContractTypeById(1L));
+//		customerService.deleteCustomerById(1L);
+//		try {
+//			customerService.deleteCustomer(customerService.getCustomerByDNI("11111111L"));
+//		} catch (CustomerNotFound e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+		
+		departmentService.deleteDepartmentByd(1L);
+//		departmentService.deleteDepartment(departmentService.getDepartmentById(2L));
+	
+		//TODO(No funciona bien el delete con el preRemove se borran todos los empleados)
+//		employeeService.deleteEmployeeByd(1L);
+		
 		MAINLOG.debug("Fin del programa");
 
 	}

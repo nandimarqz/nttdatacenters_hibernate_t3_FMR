@@ -120,7 +120,7 @@ public abstract class DaoImpl<T> implements DaoI<T> {
 		try {
 			// Inicia la transaccion
 			tx.begin();
-
+			
 			// Crea el borrado con lenguaje HQL
 			String qlString = "DELETE FROM " + clazz.getName() + " WHERE ID = " + id;
 

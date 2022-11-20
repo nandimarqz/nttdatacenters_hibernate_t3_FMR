@@ -17,6 +17,8 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -163,6 +165,7 @@ public class Customer extends AbstracEntity {
 	}
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "customer")
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	public List<Contract> getContracts() {
 		return contracts;
 	}
