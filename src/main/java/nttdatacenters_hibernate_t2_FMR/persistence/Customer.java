@@ -174,7 +174,7 @@ public class Customer extends AbstracEntity {
 		this.contracts = contracts;
 	}
 
-	@ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+	@ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.PERSIST)
 	@JoinTable(name = "NTTDATA_HIBERNATE_T2_ATENDIDOS", joinColumns = @JoinColumn(name = "ID_CLIENTE"), inverseJoinColumns = @JoinColumn(name = "ID_EMPLEADO"))
 	public List<Employee> getEmployeesSeen() {
 		return employeesSeen;

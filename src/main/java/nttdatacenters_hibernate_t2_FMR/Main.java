@@ -281,21 +281,26 @@ public class Main {
  		System.out.println(employeeService.getAllEmployees());
 		System.out.println(employeeService.getAllEmployees());
 
-//		contractTypeService.deleteContractTypeByd(1L);
-//		contractTypeService.deleteContractType(contractTypeService.getContractTypeById(1L));
-//		customerService.deleteCustomerById(1L);
-//		try {
-//			customerService.deleteCustomer(customerService.getCustomerByDNI("11111111L"));
-//		} catch (CustomerNotFound e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+		contractTypeService.deleteContractTypeByd(1L);
 		
-//		departmentService.deleteDepartmentByd(1L);
-//		departmentService.deleteDepartment(departmentService.getDepartmentById(2L));
-	
-		//TODO(No funciona bien el delete con el preRemove se borran todos los empleados)
+		try {
+			customerService.deleteCustomer(customerService.getCustomerByDNI("11111111L"));
+		} catch (CustomerNotFound e) {
+			e.printStackTrace();
+		}
+		
 		employeeService.deleteEmployee(employeeService.getEmployeeById(2L));
+		
+		try {
+			Customer c = customerService.getCustomerByDNI("22222222L");
+			
+			c.setName("Pepe");
+			
+			customerService.updateCustomer(c);
+		} catch (CustomerNotFound e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		MAINLOG.debug("Fin del programa");
 
