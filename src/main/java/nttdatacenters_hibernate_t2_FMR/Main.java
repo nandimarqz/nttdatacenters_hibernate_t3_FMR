@@ -291,11 +291,11 @@ public class Main {
 //			e.printStackTrace();
 //		}
 		
-		departmentService.deleteDepartmentByd(1L);
+//		departmentService.deleteDepartmentByd(1L);
 //		departmentService.deleteDepartment(departmentService.getDepartmentById(2L));
 	
 		//TODO(No funciona bien el delete con el preRemove se borran todos los empleados)
-//		employeeService.deleteEmployeeByd(1L);
+		employeeService.deleteEmployee(employeeService.getEmployeeById(2L));
 		
 		MAINLOG.debug("Fin del programa");
 

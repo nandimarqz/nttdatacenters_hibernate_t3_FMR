@@ -1,5 +1,6 @@
 package nttdatacenters_hibernate_t2_FMR.persistence;
 
+import java.util.Iterator;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -104,6 +105,43 @@ public class Employee extends AbstracEntity {
 		return department;
 	}
 
+	@PreRemove
+	private void preRemove() {
+		
+		if(department != null) {
+			
+			department.setBoss(null);
+			
+			if(department.getEmployees() != null) {
+			
+				boolean exist = Boolean.FALSE;
+				Iterator<Employee> it = department.getEmployees().iterator();
+				
+				while(it.hasNext() && !exist) {
+					
+					Employee e = it.next();
+					
+					if(e.getDni().equals(this.dni)) {
+						
+						exist = Boolean.TRUE;
+						it.remove();
+						
+					}
+					
+				}
+			}
+			
+			department = null;
+			
+			if(departmentLed != null) {
+				
+				departmentLed.setBoss(null);
+				departmentLed = null;
+			}
+		}
+		
+	}
+
 	public void setDepartment(Department department) {
 		this.department = department;
 	}
@@ -113,22 +151,11 @@ public class Employee extends AbstracEntity {
 		return departmentLed;
 	}
 
-//	@PreRemove
-//	private void preRemove() {
-//
-//		if (departmentLed != null) {
-//
-//			departmentLed.setBoss(null);
-//			
-//		}
-//
-//	}
-
 	public void setDepartmentLed(Department departmentLed) {
 		this.departmentLed = departmentLed;
 	}
 
-	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "employeesSeen", cascade = CascadeType.ALL)
+	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "employeesSeen")
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	public List<Customer> getCustomersServed() {
 		return customersServed;

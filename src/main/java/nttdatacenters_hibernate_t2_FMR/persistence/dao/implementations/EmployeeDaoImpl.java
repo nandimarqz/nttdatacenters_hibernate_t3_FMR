@@ -35,13 +35,13 @@ public class EmployeeDaoImpl extends DaoImpl<Employee> implements EmployeeDaoI {
 		return e;
 	}
 	
-//	@Override
-//	public void deleteById(Long id) {
-//				
-//		Employee employee = super.searchById(id);
-//		
-//		super.delete(employee);
-//		
-//		
-//	}
+	@Override
+	public void deleteById(Long id) {
+				
+		Employee employee = super.searchById(id);
+		
+		super.delete(employee);
+		
+		
+	}
 }
