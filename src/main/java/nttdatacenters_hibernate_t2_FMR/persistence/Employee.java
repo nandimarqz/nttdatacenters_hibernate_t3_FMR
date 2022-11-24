@@ -2,6 +2,7 @@ package nttdatacenters_hibernate_t2_FMR.persistence;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -51,6 +52,11 @@ public class Employee extends AbstracEntity {
 	/** Clientes atendidos por el empleado */
 	private List<Customer> customersServed;
 
+	/**
+	 * Devuelve el ID del empleado
+	 * 
+	 * @return Long
+	 */
 	@Column(name = "ID")
 	@Id
 	@GeneratedValue(generator = "NNTDATA_SEC")
@@ -59,108 +65,206 @@ public class Employee extends AbstracEntity {
 		return employeeId;
 	}
 
+	/**
+	 * Establece el id del empleado por el id pasado por parametro
+	 * 
+	 * @param employeeId
+	 */
 	public void setEmployeeId(Long employeeId) {
 		this.employeeId = employeeId;
 	}
 
+	/**
+	 * Devuelve el nombre del empleado
+	 * 
+	 * @return String
+	 */
 	@Column(name = "NAME")
 	public String getName() {
 		return name;
 	}
 
+	/**
+	 * Establece el nombre del empleado por el nombre pasado por parametro
+	 * 
+	 * @param name
+	 */
 	public void setName(String name) {
 		this.name = name;
 	}
 
+	/**
+	 * Devuelve el primer apellido del empleado
+	 * 
+	 * @return String
+	 */
 	@Column(name = "FIRST_SURNAME")
 	public String getFirstSurname() {
 		return firstSurname;
 	}
 
+	/**
+	 * Establece el primer apellido del empleado por el apellido pasado por
+	 * parametro
+	 * 
+	 * @param firstSurname
+	 */
 	public void setFirstSurname(String firstSurname) {
 		this.firstSurname = firstSurname;
 	}
 
+	/**
+	 * Devuelve el segundo apellido del empleado
+	 * 
+	 * @return String
+	 */
 	@Column(name = "SECOND_SURNAME")
 	public String getSecondSurname() {
 		return secondSurname;
 	}
 
+	/**
+	 * Establece el segundo apellido del empleado por el apellido pasado por
+	 * parametro
+	 * 
+	 * @param secondSurname
+	 */
 	public void setSecondSurname(String secondSurname) {
 		this.secondSurname = secondSurname;
 	}
 
+	/**
+	 * Devulve el DNI del empleado
+	 * 
+	 * @return String
+	 */
 	@Column(name = "DNI", unique = true, nullable = false, length = 9)
 	public String getDni() {
 		return dni;
 	}
 
+	/**
+	 * Establece el DNI del empleado por el DNI pasado por parametro
+	 * 
+	 * @param dni
+	 */
 	public void setDni(String dni) {
 		this.dni = dni;
 	}
 
+	/**
+	 * Devuelve el departamento al que pertece el empleado
+	 * 
+	 * @return Department
+	 */
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "ID_DEPARTAMENTO")
 	public Department getDepartment() {
 		return department;
 	}
 
+	/**
+	 * Metodo que se ejecuta antes de borrar un empleado
+	 */
 	@PreRemove
 	private void preRemove() {
-		
-		if(department != null) {
-			
+
+		// Si el departamento es distinto a null entra en la condicion
+		if (department != null) {
+
+			// Setea el jefe a null
 			department.setBoss(null);
-			
-			if(department.getEmployees() != null) {
-			
+
+			// Si la lista de empleados del departamento es distinto a null entra en la
+			// condicion
+			if (department.getEmployees() != null) {
+
+				// Se crea un boolean a false
 				boolean exist = Boolean.FALSE;
+				// Se crea un iterador para la lista de empleados del departamento
 				Iterator<Employee> it = department.getEmployees().iterator();
-				
-				while(it.hasNext() && !exist) {
-					
+
+				// Mientras exist sea falta y el iterador tenga valor siguiente entra en el
+				// bucle
+				while (it.hasNext() && !exist) {
+
+					// Guarda el valor del iterador en una variable empleado
 					Employee e = it.next();
-					
-					if(e.getDni().equals(this.dni)) {
-						
+
+					// Si el DNI de la variable empleado es igual al dni del empleado que se va a
+					// borrar entra en la condicion
+					if (e.getDni().equals(this.dni)) {
+
+						// Exist se pone a true
 						exist = Boolean.TRUE;
+						// Borra el empleado de la lista
 						it.remove();
-						
+
 					}
-					
+
 				}
 			}
-			
+
+			// Se setea el departamento a null
 			department = null;
-			
-			if(departmentLed != null) {
-				
+
+			// Si el empleado lidera algun departamento es decir el valor de la vriable es
+			// distinto a null entra en la condición
+			if (departmentLed != null) {
+
+				// Setea el boss del departamento a null
 				departmentLed.setBoss(null);
+				// Pone el departamento liderado del empleado a null
 				departmentLed = null;
 			}
 		}
-		
+
 	}
 
+	/**
+	 * Establece el departamento del empleado por el departamento pasado por parametro
+	 * 
+	 * @param department
+	 */
 	public void setDepartment(Department department) {
 		this.department = department;
 	}
 
+	/**
+	 * Devuelve el departamento liderado por el empleado
+	 * 
+	 * @return Department
+	 */
 	@OneToOne(fetch = FetchType.LAZY, mappedBy = "boss")
 	public Department getDepartmentLed() {
 		return departmentLed;
 	}
 
+	/**
+	 * Establece el departamento liderado por el empleado por el departamento pasado por parametro
+	 * 
+	 * @param departmentLed
+	 */
 	public void setDepartmentLed(Department departmentLed) {
 		this.departmentLed = departmentLed;
 	}
 
+	/**
+	 * Devuelve la lista de clietntes atendidos
+	 * 
+	 * @return Lista de clientes atendidos
+	 */
 	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "employeesSeen")
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	public List<Customer> getCustomersServed() {
 		return customersServed;
 	}
 
+	/**
+	 * Establece la lista de clientes atendidos por el empleado por la lista pasada por parametro
+	 * 
+	 * @param customersServed
+	 */
 	public void setCustomersServed(List<Customer> customersServed) {
 		this.customersServed = customersServed;
 	}
@@ -169,7 +273,7 @@ public class Employee extends AbstracEntity {
 	@Transient
 	public Long getId() {
 
-		return employeeId;
+		return this.getEmployeeId();
 	}
 
 	@Override
@@ -181,10 +285,27 @@ public class Employee extends AbstracEntity {
 	}
 
 	@Override
+	public int hashCode() {
+		return Objects.hash(dni);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Employee other = (Employee) obj;
+		return Objects.equals(dni, other.dni);
+	}
+
+	@Override
 	public String toString() {
 		return "Employee [employeeId=" + employeeId + ", name=" + name + ", firstSurname=" + firstSurname
-				+ ", secondSurname=" + secondSurname + ", dni=" + dni + ", department=" + department
-				+ ", departmentLed=" + departmentLed + ", customersServed=" + customersServed + "]";
+				+ ", secondSurname=" + secondSurname + ", dni=" + dni + ", department=" + department.getName()
+				+ ", departmentLed=" + departmentLed.getName() + ", customersServed=" + customersServed + "]";
 	}
 
 }

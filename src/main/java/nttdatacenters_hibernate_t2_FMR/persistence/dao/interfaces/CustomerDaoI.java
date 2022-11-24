@@ -2,6 +2,12 @@ package nttdatacenters_hibernate_t2_FMR.persistence.dao.interfaces;
 
 import nttdatacenters_hibernate_t2_FMR.persistence.Customer;
 
+/**
+ * Interfaz para el DAO de clientes
+ * 
+ * @author nandi
+ *
+ */
 public interface CustomerDaoI extends DaoI<Customer> {
 
 	/**

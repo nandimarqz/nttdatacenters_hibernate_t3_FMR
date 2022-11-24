@@ -31,13 +31,21 @@ import nttdatacenters_hibernate_t2_FMR.services.interfaces.DepartmentManagmentSe
 import nttdatacenters_hibernate_t2_FMR.services.interfaces.EmployeeManagmentServiceI;
 
 /**
- * Hello world!
+ * Clase principal 
+ * 
+ * @author nandi
  *
  */
 public class Main {
+	
 	/** Logger para la clase */
 	private static final Logger MAINLOG = LoggerFactory.getLogger(Main.class);
 
+	/**
+	 * Metodo principal 
+	 * 
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		MAINLOG.debug("Inicio del programa");
 
@@ -104,6 +112,7 @@ public class Main {
 		contract1.setEffectiveDate(Date.valueOf(LocalDate.of(2022, 11, 16)));
 		contract1.setExpirationDate(Date.valueOf(LocalDate.of(2022, 11, 30)));
 		contract1.setCustomer(c1);
+		contract1.setMonthlyPrice(1000);
 		contract1.setUpdatedDate(date);
 		contract1.setUpdatedUser(user);
 
@@ -113,6 +122,7 @@ public class Main {
 		contract2.setEffectiveDate(Date.valueOf(LocalDate.of(2022, 11, 16)));
 		contract2.setExpirationDate(Date.valueOf(LocalDate.of(2022, 12, 5)));
 		contract2.setCustomer(c1);
+		contract2.setMonthlyPrice(1500);
 		contract2.setUpdatedDate(date);
 		contract2.setUpdatedUser(user);
 
@@ -124,6 +134,7 @@ public class Main {
 		contract3.setEffectiveDate(Date.valueOf(LocalDate.of(2022, 11, 16)));
 		contract3.setExpirationDate(Date.valueOf(LocalDate.of(2022, 11, 30)));
 		contract3.setCustomer(c2);
+		contract3.setMonthlyPrice(500);
 		contract3.setUpdatedDate(date);
 		contract3.setUpdatedUser(user);
 
@@ -133,6 +144,7 @@ public class Main {
 		contract4.setEffectiveDate(Date.valueOf(LocalDate.of(2022, 12, 16)));
 		contract4.setExpirationDate(Date.valueOf(LocalDate.of(2023, 1, 5)));
 		contract4.setCustomer(c2);
+		contract4.setMonthlyPrice(2500);
 		contract4.setUpdatedDate(date);
 		contract4.setUpdatedUser(user);
 
@@ -142,6 +154,7 @@ public class Main {
 		contract5.setEffectiveDate(Date.valueOf(LocalDate.of(2022, 11, 16)));
 		contract5.setExpirationDate(Date.valueOf(LocalDate.of(2023, 1, 15)));
 		contract5.setCustomer(c2);
+		contract5.setMonthlyPrice(200);
 		contract5.setUpdatedDate(date);
 		contract5.setUpdatedUser(user);
 		
@@ -246,19 +259,10 @@ public class Main {
 			contractTypeService.insertNewContractType(ct3);
 		} catch (ExistingContractType e) {
 
+			MAINLOG.error(e.getMessage());
 			e.printStackTrace();
 		}
 
-//		try {
-//			contractService.insertNewContract(contract1);
-//			contractService.insertNewContract(contract2);
-//			contractService.insertNewContract(contract3);
-//			contractService.insertNewContract(contract4);
-//			contractService.insertNewContract(contract5);
-//		} catch (ExistingContract e) {
-//
-//			e.printStackTrace();
-//		}
 
 		try {
 			departmentService.insertNewDepartment(dp1);
@@ -267,6 +271,7 @@ public class Main {
 			departmentService.insertNewDepartment(dp4);
 		} catch (ExistingDepartment e) {
 
+			MAINLOG.error(e.getMessage());
 			e.printStackTrace();
 		}
 
@@ -275,6 +280,7 @@ public class Main {
 			employeeService.insertNewEmployee(emp2);
 		} catch (ExistingEmployee e) {
 
+			MAINLOG.error(e.getMessage());
 			e.printStackTrace();
 		}
 		
@@ -286,6 +292,8 @@ public class Main {
 		try {
 			customerService.deleteCustomer(customerService.getCustomerByDNI("11111111L"));
 		} catch (CustomerNotFound e) {
+			
+			MAINLOG.error(e.getMessage());
 			e.printStackTrace();
 		}
 		
@@ -298,9 +306,12 @@ public class Main {
 			
 			customerService.updateCustomer(c);
 		} catch (CustomerNotFound e) {
-			// TODO Auto-generated catch block
+
+			MAINLOG.error(e.getMessage());
 			e.printStackTrace();
 		}
+		
+		System.out.println(contractService.getAllContracts());
 		
 		MAINLOG.debug("Fin del programa");
 

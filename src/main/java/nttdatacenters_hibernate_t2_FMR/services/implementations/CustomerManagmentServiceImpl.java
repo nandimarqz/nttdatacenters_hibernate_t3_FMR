@@ -12,8 +12,12 @@ import nttdatacenters_hibernate_t2_FMR.persistence.dao.implementations.CustomerD
 import nttdatacenters_hibernate_t2_FMR.persistence.dao.interfaces.CustomerDaoI;
 import nttdatacenters_hibernate_t2_FMR.services.interfaces.CustomerManagmentServiceI;
 
-
-
+/**
+ * Implementacion de la interfaz CustomerManagmentServiceI
+ * 
+ * @author nandi
+ *
+ */
 public class CustomerManagmentServiceImpl implements CustomerManagmentServiceI {
 
 	/** DAO de los clientes */
@@ -22,7 +26,12 @@ public class CustomerManagmentServiceImpl implements CustomerManagmentServiceI {
 	/** Logger para la clase */
 	private static final Logger CUSTOMERDAOLOG = LoggerFactory.getLogger(CustomerManagmentServiceImpl.class);
 
+	/**
+	 * Constructor Servicio
+	 */
 	public CustomerManagmentServiceImpl() {
+		
+		CUSTOMERDAOLOG.debug("Creando el servicio de gestion de clientes");
 		// Se inyecta el DAO de los clientes
 		customerDao = new CustomerDaoImpl();
 

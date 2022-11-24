@@ -19,14 +19,18 @@ import javax.persistence.Transient;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
+/**
+ * Esta tabla hace referencia a la tabla NTTDATA_T1_HIBERNATE_CUSTOMER en la
+ * base de datos
+ * 
+ * @author nandi
+ *
+ */
 @Entity
 @Table(name = "NTTDATA_T1_HIBERNATE_CUSTOMER")
 public class Customer extends AbstracEntity {
 
-	/**  */
 	private static final long serialVersionUID = 1L;
 
 	/** ID del cliente en base de datos */
@@ -52,9 +56,6 @@ public class Customer extends AbstracEntity {
 
 	/***/
 
-	/** Logger para la clase */
-	private static final Logger CUSTOMERLOG = LoggerFactory.getLogger(Customer.class);
-
 	/**
 	 * Devuelve el ID del clietne
 	 * 
@@ -63,9 +64,9 @@ public class Customer extends AbstracEntity {
 	@Column(name = "ID")
 	@Id
 	@GeneratedValue(generator = "NNTDATA_SEC")
-	@SequenceGenerator(name = "NNTDATA_SEC", sequenceName = "NNTDATA_CUSTOMER_SEC",allocationSize = 1)
+	@SequenceGenerator(name = "NNTDATA_SEC", sequenceName = "NNTDATA_CUSTOMER_SEC", allocationSize = 1)
 	public Long getCustomerId() {
-		CUSTOMERLOG.debug("Obteniendo el ID del cliente {}", this.dni);
+
 		return customerId;
 	}
 
@@ -75,7 +76,6 @@ public class Customer extends AbstracEntity {
 	 * @param id
 	 */
 	public void setCustomerId(Long id) {
-		CUSTOMERLOG.debug("Estableciendo el ID del cliente {}", this.dni);
 		this.customerId = id;
 	}
 
@@ -86,7 +86,6 @@ public class Customer extends AbstracEntity {
 	 */
 	@Column(name = "NAME")
 	public String getName() {
-		CUSTOMERLOG.debug("Obteniendo el nombre del cliente {}", this.dni);
 		return name;
 	}
 
@@ -96,7 +95,6 @@ public class Customer extends AbstracEntity {
 	 * @param name
 	 */
 	public void setName(String name) {
-		CUSTOMERLOG.debug("Estableciendo el nombre del cliente {}", this.dni);
 		this.name = name;
 	}
 
@@ -107,7 +105,6 @@ public class Customer extends AbstracEntity {
 	 */
 	@Column(name = "FIRST_SURNAME")
 	public String getFirstSurname() {
-		CUSTOMERLOG.debug("Obteniendo el primer apellido del cliente {}", this.dni);
 		return firstSurname;
 	}
 
@@ -117,7 +114,6 @@ public class Customer extends AbstracEntity {
 	 * @param firstSurname
 	 */
 	public void setFirstSurname(String firstSurname) {
-		CUSTOMERLOG.debug("Estableciendo el primer apellido del cliente {}", this.dni);
 		this.firstSurname = firstSurname;
 	}
 
@@ -128,7 +124,6 @@ public class Customer extends AbstracEntity {
 	 */
 	@Column(name = "SECOND_SURNAME")
 	public String getSecondSurname() {
-		CUSTOMERLOG.debug("Obteniendo el segundo apellido del cliente {}", this.dni);
 		return secondSurname;
 	}
 
@@ -139,7 +134,6 @@ public class Customer extends AbstracEntity {
 	 * @param secondSurname
 	 */
 	public void setSecondSurname(String secondSurname) {
-		CUSTOMERLOG.debug("Estableciendo el segundo apellido del cliente {}", this.dni);
 		this.secondSurname = secondSurname;
 	}
 
@@ -150,7 +144,6 @@ public class Customer extends AbstracEntity {
 	 */
 	@Column(name = "DNI", unique = true, nullable = false, length = 9)
 	public String getDni() {
-		CUSTOMERLOG.debug("Obteniendo el DNI del cliente {}", this.dni);
 		return dni;
 	}
 
@@ -160,26 +153,41 @@ public class Customer extends AbstracEntity {
 	 * @param dni
 	 */
 	public void setDni(String dni) {
-		CUSTOMERLOG.debug("Estableciendo el DNI del cliente {}", this.dni);
 		this.dni = dni;
 	}
 
+	/**
+	 * Devuelve la lista de contratos del cliente
+	 * 
+	 * @return lista de contratos del cliente
+	 */
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "customer")
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	public List<Contract> getContracts() {
 		return contracts;
 	}
 
+	/**
+	 * Establece la lista de contratos del cliente
+	 * 
+	 * @param contracts
+	 */
 	public void setContracts(List<Contract> contracts) {
 		this.contracts = contracts;
 	}
 
-	@ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.PERSIST)
+	/**
+	 * Devuelve la lista de empleados que ha atendido al cliente
+	 * 
+	 * @return lista de empleados por los que ha sido atendido
+	 */
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
 	@JoinTable(name = "NTTDATA_HIBERNATE_T2_ATENDIDOS", joinColumns = @JoinColumn(name = "ID_CLIENTE"), inverseJoinColumns = @JoinColumn(name = "ID_EMPLEADO"))
 	public List<Employee> getEmployeesSeen() {
 		return employeesSeen;
 	}
 
+	// Establece la lista de empleados que ha atendido al cliente
 	public void setEmployeesSeen(List<Employee> employeesSeen) {
 		this.employeesSeen = employeesSeen;
 	}
@@ -194,13 +202,12 @@ public class Customer extends AbstracEntity {
 	@Override
 	@Transient
 	public void setId(Long id) {
-		this.customerId = id;
+		this.setCustomerId(id); 
 
 	}
 
 	@Override
 	public int hashCode() {
-		CUSTOMERLOG.debug("Obteniendo el HASH del cliente {}", this.dni);
 		return Objects.hash(dni);
 	}
 

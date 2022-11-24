@@ -11,7 +11,12 @@ import nttdatacenters_hibernate_t2_FMR.persistence.dao.interfaces.CustomerDaoI;
 import nttdatacenters_hibernate_t2_FMR.utils.EntityManagerUtil;
 
 
-
+/**
+ * Implementacion de la interfaz del Dao de cliente
+ * 
+ * @author nandi
+ *
+ */
 public class CustomerDaoImpl extends DaoImpl<Customer> implements CustomerDaoI {
 
 	/** EntityManager para gestionar consultas, inserciones , etc */
@@ -20,6 +25,10 @@ public class CustomerDaoImpl extends DaoImpl<Customer> implements CustomerDaoI {
 	/** Logger para la clase */
 	private static final Logger CUSTOMERDAOLOG = LoggerFactory.getLogger(CustomerDaoImpl.class);
 	
+	/**
+	 * Constructor sin parametros 
+	 * setea la clase con la que trabaja el DAO genérico
+	 */
 	public CustomerDaoImpl() {
 		super();
 		this.setClazz(Customer.class);

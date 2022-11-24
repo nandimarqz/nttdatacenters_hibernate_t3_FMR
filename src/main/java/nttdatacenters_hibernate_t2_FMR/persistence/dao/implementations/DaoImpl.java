@@ -13,7 +13,12 @@ import nttdatacenters_hibernate_t2_FMR.persistence.dao.interfaces.DaoI;
 import nttdatacenters_hibernate_t2_FMR.utils.EntityManagerUtil;
 
 
-
+/**
+ * Implementacion de la interfaz del Dao generico
+ * 
+ * @author nandi
+ *
+ */
 public abstract class DaoImpl<T> implements DaoI<T> {
 
 	/** EntityManager para gestionar consultas, inserciones , etc */

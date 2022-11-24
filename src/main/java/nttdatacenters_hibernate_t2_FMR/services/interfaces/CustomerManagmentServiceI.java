@@ -6,23 +6,29 @@ import nttdatacenters_hibernate_t2_FMR.exceptions.CustomerNotFound;
 import nttdatacenters_hibernate_t2_FMR.exceptions.ExistingCustomer;
 import nttdatacenters_hibernate_t2_FMR.persistence.Customer;
 
-
-
+/**
+ * Interfaz del servicio de gestion de los clientes
+ * 
+ * @author nandi
+ *
+ */
 public interface CustomerManagmentServiceI {
 
 	/**
-	 * Inserta un nuevo cliente
+	 * Inserta un nuevo cliente, si el cliente que inserta existe lanza una
+	 * excepcion
 	 * 
 	 * @param customer
-	 * @throws ExistingCustomer 
+	 * @throws ExistingCustomer
 	 */
 	public void insertNewCustomer(Customer customer) throws ExistingCustomer;
 
 	/**
-	 * Actualiza un cliente existente
+	 * Actualiza un cliente existente, si no existe el cliente que se va a
+	 * actualizar lanza una excepcion
 	 * 
 	 * @param customer
-	 * @throws CustomerNotFound 
+	 * @throws CustomerNotFound
 	 */
 	public void updateCustomer(Customer customer) throws CustomerNotFound;
 
@@ -49,18 +55,19 @@ public interface CustomerManagmentServiceI {
 	public Customer getCustomerById(Long customerId);
 
 	/**
-	 * Devuelve un cliente existente con el dni pasado por parametro
+	 * Devuelve un cliente existente con el dni pasado por parametro, Si no
+	 * encuentra ningun cliente lanza una excepcion
 	 * 
 	 * @param dni
 	 * @return Customer
-	 * @throws CustomerNotFound 
+	 * @throws CustomerNotFound
 	 */
 	public Customer getCustomerByDNI(String dni) throws CustomerNotFound;
 
 	/**
 	 * Devuelve una lista con todos los clientes existentes
 	 * 
-	 * @return
+	 * @return lista de clientes
 	 */
 	public List<Customer> getAllCustomers();
 

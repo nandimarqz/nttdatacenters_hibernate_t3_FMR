@@ -7,17 +7,23 @@ import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Transient;
 
+/**
+ * Clase que mapea las columnas comunes entre las entidades
+ * 
+ * @author nandi
+ *
+ */
 @MappedSuperclass
 public abstract class AbstracEntity implements Serializable {
-	
+
 	private static final long serialVersionUID = 1L;
-	
+
 	/** Auditoría | Usuario que actualiza */
 	private String updatedUser;
 
 	/** Auditoría | Día actualizado */
 	private Date updatedDate;
-	
+
 	/**
 	 * GET ID
 	 * 
@@ -33,7 +39,7 @@ public abstract class AbstracEntity implements Serializable {
 	 */
 	@Transient
 	public abstract void setId(final Long id);
-	
+
 	/**
 	 * @return the updatedUser
 	 */
@@ -43,8 +49,7 @@ public abstract class AbstracEntity implements Serializable {
 	}
 
 	/**
-	 * @param updatedUser
-	 *            the updatedUser to set
+	 * @param updatedUser the updatedUser to set
 	 */
 	public void setUpdatedUser(String updatedUser) {
 		this.updatedUser = updatedUser;
@@ -59,13 +64,10 @@ public abstract class AbstracEntity implements Serializable {
 	}
 
 	/**
-	 * @param updatedDate
-	 *            the updatedDate to set
+	 * @param updatedDate the updatedDate to set
 	 */
 	public void setUpdatedDate(Date updatedDate) {
 		this.updatedDate = updatedDate;
 	}
-	
-	
 
 }

@@ -37,14 +37,14 @@ public interface DaoI<T> {
 	 * parametro
 	 * 
 	 * @param id
-	 * @return <"T">
+	 * @return clase invocante
 	 */
 	public T searchById(Long id);
 
 	/**
 	 * Devuelve una lista de Objetos recogido de la base de datos
 	 * 
-	 * @return
+	 * @return lista de elementos de la clase invocante
 	 */
 	public List<T> searchAll();
 
