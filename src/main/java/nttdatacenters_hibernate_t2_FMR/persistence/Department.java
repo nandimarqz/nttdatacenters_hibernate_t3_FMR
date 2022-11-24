@@ -197,7 +197,7 @@ public class Department extends AbstracEntity {
 	@Transient
 	public Long getId() {
 
-		return this.getId();
+		return this.getDepartmentId();
 	}
 
 	@Override
