@@ -289,14 +289,6 @@ public class Main {
 
 		contractTypeService.deleteContractTypeByd(1L);
 		
-		try {
-			customerService.deleteCustomer(customerService.getCustomerByDNI("11111111L"));
-		} catch (CustomerNotFound e) {
-			
-			MAINLOG.error(e.getMessage());
-			e.printStackTrace();
-		}
-		
 		employeeService.deleteEmployee(employeeService.getEmployeeById(2L));
 		
 		try {
@@ -312,6 +304,8 @@ public class Main {
 		}
 		
 		System.out.println(contractService.getAllContracts());
+		
+		System.out.println(customerService.getCustomerByContractMonthlyGt((double) 2000));
 		
 		MAINLOG.debug("Fin del programa");
 

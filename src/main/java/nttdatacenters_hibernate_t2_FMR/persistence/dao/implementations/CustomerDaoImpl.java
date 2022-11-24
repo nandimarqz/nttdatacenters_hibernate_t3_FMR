@@ -1,11 +1,19 @@
 package nttdatacenters_hibernate_t2_FMR.persistence.dao.implementations;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Join;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import nttdatacenters_hibernate_t2_FMR.persistence.Contract;
 import nttdatacenters_hibernate_t2_FMR.persistence.Customer;
 import nttdatacenters_hibernate_t2_FMR.persistence.dao.interfaces.CustomerDaoI;
 import nttdatacenters_hibernate_t2_FMR.utils.EntityManagerUtil;
@@ -61,5 +69,27 @@ public class CustomerDaoImpl extends DaoImpl<Customer> implements CustomerDaoI {
 		//Devuelve el cliente
 		return customer;
 	}
+
+	@Override
+	public List<Customer> getCustomerByContractMonthlyGt(Double monthlyPrice) {
+		CUSTOMERDAOLOG.debug("Obteniendo clientes con la mensualidad del contrato mayor a : {}", monthlyPrice);
+		
+		//Consulta
+		CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+		CriteriaQuery<Customer> cquery = cb.createQuery(Customer.class);
+		Root<Customer> rootP = cquery.from(Customer.class); 
+		Join<Customer,Contract> pJoinT = rootP.join("contracts");
+		
+		//Where
+		Predicate pr = cb.gt(pJoinT.<Double>get("monthlyPrice"), monthlyPrice);
+		
+		//Consulta
+		cquery.select(rootP).where(cb.and(pr)).distinct(true);
+		
+		//Ejecucion de la consulta 
+		return  entityManager.createQuery(cquery).getResultList();
+	}
+	
+	
 
 }

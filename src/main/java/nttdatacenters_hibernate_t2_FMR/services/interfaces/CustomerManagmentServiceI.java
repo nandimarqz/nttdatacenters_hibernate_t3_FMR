@@ -71,4 +71,13 @@ public interface CustomerManagmentServiceI {
 	 */
 	public List<Customer> getAllCustomers();
 
+	/**
+	 * Devuelve una lista con los clientes que tienen contratos con la mensualidad
+	 * mayor a la cantidad pasado por parametro
+	 * 
+	 * @param monthlyPrice
+	 * @return Lista de clientes
+	 */
+	public List<Customer> getCustomerByContractMonthlyGt(Double monthlyPrice);
+
 }

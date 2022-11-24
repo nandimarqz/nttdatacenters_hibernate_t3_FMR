@@ -179,4 +179,22 @@ public class CustomerManagmentServiceImpl implements CustomerManagmentServiceI {
 
 	}
 
+	@Override
+	public List<Customer> getCustomerByContractMonthlyGt(Double monthlyPrice) {
+		
+		//Crea una lista de clientes a null
+		List<Customer> customers = null;
+		
+		//Si el precio mensual pasado por parametro es distinto a null entra en la condicion
+		if(monthlyPrice != null) {
+			
+		//Consume el DAO y obtiene la lista que devuelve y la guarda en una variable
+		 customers = customerDao.getCustomerByContractMonthlyGt(monthlyPrice);
+			
+		}
+		
+		//Devuelve la lista 
+		return customers;
+	}
+
 }

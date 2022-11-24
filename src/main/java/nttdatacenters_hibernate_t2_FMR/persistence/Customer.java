@@ -61,7 +61,7 @@ public class Customer extends AbstracEntity {
 	 * 
 	 * @return Long
 	 */
-	@Column(name = "ID")
+	@Column(name = "ID_CUSTOMER")
 	@Id
 	@GeneratedValue(generator = "NNTDATA_SEC")
 	@SequenceGenerator(name = "NNTDATA_SEC", sequenceName = "NNTDATA_CUSTOMER_SEC", allocationSize = 1)
